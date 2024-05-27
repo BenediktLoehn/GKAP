@@ -1,0 +1,9 @@
+edge {
+    text-alignment: center;
+    text-size: 20px;
+    text-background-mode: plain;
+}
+
+edge.mst {
+    fill-color: rgb(0,100,255);
+}

@@ -1,3 +1,5 @@
+package Praktikum_1;
+
 import Praktikum_1.BFS;
 import Praktikum_1.Graphs;
 import org.graphstream.graph.Graph;

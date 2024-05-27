@@ -17,7 +17,8 @@ public class RandomWeightedGraph {
         // Methode mit Beispielwerten aufrufen
         Graph graph = getGraph(10,20);
 
-        runKruskal(graph);
+       // runKruskal(graph);
+        runPrim(graph);
     }
 
     public static void runKruskal(Graph graph) {
@@ -35,6 +36,29 @@ public class RandomWeightedGraph {
 
         // Laufzeit ausgeben
         System.out.println("Laufzeit des Kruskal-Algorithmus: " + ms/1000d + " Sekunden");
+
+        // Kantengewichtsumme ausgeben
+        System.out.println("Kantengewichtssumme des minimalen Spannbaums: " + graph.getAttribute("totalWeight", Integer.class));
+
+        // Ergebnis anzeigen
+        graph.display();
+    }
+
+    public static void runPrim(Graph graph) {
+        // Zeit vor der Ausführung des Kruskal-Algorithmus erfassen
+        long startTime = System.currentTimeMillis();
+
+        // Kruskal-Algorithmus anwenden
+        Prim.prim(graph);
+
+        // Zeit nach der Ausführung des Kruskal-Algorithmus erfassen
+        long endTime = System.currentTimeMillis();
+
+        // Laufzeit berechnen
+        long ms = (endTime - startTime);
+
+        // Laufzeit ausgeben
+        System.out.println("Laufzeit des Prim-Algorithmus: " + ms/1000d + " Sekunden");
 
         // Kantengewichtsumme ausgeben
         System.out.println("Kantengewichtssumme des minimalen Spannbaums: " + graph.getAttribute("totalWeight", Integer.class));
