@@ -37,28 +37,25 @@ public class Main {
         Matcher matcher = pattern.matcher(graphString);
         Graph graph = new SingleGraph("Tutorial 1");
         while (matcher.find()) {
-            System.out.println("Source: " + matcher.group("source"));
-           // graph.addNode(matcher.group("source"));
-            System.out.println("Target: " + matcher.group("target"));
-           // graph.addNode(matcher.group("target"));
+            String source = matcher.group("source");
+            String edge = matcher.group("edge");
+            System.out.println("Source: " + source);
+            if (graph.getNode(source) == null) {
+                graph.addNode(source);
+            }
+
+            String target = matcher.group("target");
+            System.out.println("Target: " + target);
+            if (graph.getNode(target) == null) {
+                graph.addNode(target);
+            }
+            boolean directed = edge != null && edge.equals("->");
             System.out.println("Edge: " + matcher.group("edge"));
-          //  graph.addEdge(matcher.group("source") + matcher.group("target"), matcher.group("source"),  matcher.group("target"));
+            graph.addEdge(source + target, source, target, directed);
             System.out.println("Edge Name: " + matcher.group("edgeName"));
             System.out.println("Weight: " + matcher.group("weight") + "\n");
         }
         graph.display();
-
-
-
-
-//        graph.addNode("A");
-//        graph.addNode("B");
-//        graph.addNode("C");
-//        graph.addEdge("AB", "A", "B");
-//        graph.addEdge("BC", "B", "C");
-//        graph.addEdge("CA", "C", "A");
-
-       // graph.display();
     }
 
 }
