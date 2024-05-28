@@ -1,8 +1,6 @@
 package Praktikum_2;
 
 import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.*;
-import org.graphstream.ui.graphicGraph.stylesheet.Color;
 import java.util.*;
 import java.util.stream.Collectors;
 
