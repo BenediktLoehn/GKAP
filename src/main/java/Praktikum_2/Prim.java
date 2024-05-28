@@ -1,54 +1,60 @@
 package Praktikum_2;
 
 import org.graphstream.graph.*;
-import org.graphstream.graph.implementations.*;
-import org.graphstream.ui.graphicGraph.stylesheet.Color;
 import java.util.*;
-import java.util.stream.Collectors;
+
+import static Praktikum_2.Kruskal.calculateTotalWeight;
+
 public class Prim {
 
     static Random rand = new Random();
     public static void prim(Graph graph) {
-        PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(n -> (int) n.getAttribute("minEdgeWeight")));
+        PriorityQueue<Edge> pq = new PriorityQueue<>(Comparator.comparingInt(e -> (int) e.getAttribute("weight")));
+
+        // Markiere alle Knoten als nicht besucht
         for (Node node : graph) {
-            node.setAttribute("minEdgeWeight", Integer.MAX_VALUE);
-            node.setAttribute("parent", null);
             node.setAttribute("mst", false);
         }
 
-        //Zufälliger Startknoten
-        Node start = graph.getNode(rand.nextInt(graph.getNodeCount()) + 1);
-        start.setAttribute("minEdgeWeight", 0);
-        pq.add(start);
+        // Wähle einen zufälligen Startknoten
+        Node start = graph.getNode(rand.nextInt(graph.getNodeCount()));
+        start.setAttribute("mst", true);
+
+        // Füge alle Kanten des Startknotens zur PriorityQueue hinzu
+        pq.addAll(start.edges().toList());
 
         while (!pq.isEmpty()) {
-            Node currentNode = pq.poll();
-            currentNode.setAttribute("mst", true);
+            Edge minEdge = pq.poll();
+            Node node1 = minEdge.getNode0();
+            Node node2 = minEdge.getNode1();
 
-            for (Edge edge : currentNode.edges().toList()) {
-                Node neighborNode = edge.getOpposite(currentNode);
-                int weight = (int) edge.getAttribute("weight");
+            // Finde den Knoten, der noch nicht im MST ist
+            Node newNode = null;
+            if (!(boolean) node1.getAttribute("mst") && (boolean) node2.getAttribute("mst")) {
+                newNode = node1;
+            } else if ((boolean) node1.getAttribute("mst") && !(boolean) node2.getAttribute("mst")) {
+                newNode = node2;
+            }
 
-                if (neighborNode.hasAttribute("mst") && weight < (Integer) neighborNode.getAttribute("minEdgeWeight")) {
-                    neighborNode.setAttribute("minEdgeWeight", weight);
-                    neighborNode.setAttribute("parent", currentNode);
-                    neighborNode.setAttribute("mst", true);
-                    pq.add(neighborNode);
+            // Wenn wir keinen neuen Knoten gefunden haben, fahren wir fort
+            if (newNode == null) continue;
+
+            // Füge die Kante und den neuen Knoten zum MST hinzu
+            newNode.setAttribute("mst", true);
+            minEdge.setAttribute("mst", true);
+            minEdge.setAttribute("ui.class", "mst");
+
+            // Füge alle Kanten des neuen Knotens, die zu Knoten führen, die noch nicht im MST sind, zur PriorityQueue hinzu
+            for (Edge edge : newNode.edges().toList()) {
+                Node oppositeNode = edge.getOpposite(newNode);
+                if (!(boolean) oppositeNode.getAttribute("mst")) {
+                    pq.add(edge);
                 }
             }
         }
-        for (Node node : graph) {
-            Node parent = (Node) node.getAttribute("parent");
-            if (parent != null) {
-                Edge edge = node.getEdgeBetween(parent);
-                if (edge != null) {
-                    edge.setAttribute("mst", true);
-                    edge.setAttribute("ui.class", "mst");
-                }
-            }
-        }
 
-        int totalWeight = Kruskal.calculateTotalWeight(graph);
+        // Berechne das totale Gewicht des MST
+        int totalWeight = calculateTotalWeight(graph);
         graph.setAttribute("totalWeight", totalWeight);
     }
 }

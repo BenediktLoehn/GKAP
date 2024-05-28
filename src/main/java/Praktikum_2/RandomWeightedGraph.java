@@ -3,9 +3,7 @@ package Praktikum_2;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
 
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -17,7 +15,7 @@ public class RandomWeightedGraph {
         // Methode mit Beispielwerten aufrufen
         Graph graph = getGraph(10,20);
 
-       // runKruskal(graph);
+        runKruskal(graph);
         runPrim(graph);
     }
 
@@ -45,13 +43,13 @@ public class RandomWeightedGraph {
     }
 
     public static void runPrim(Graph graph) {
-        // Zeit vor der Ausführung des Kruskal-Algorithmus erfassen
+        // Zeit vor der Ausführung des Prim-Algorithmus erfassen
         long startTime = System.currentTimeMillis();
 
-        // Kruskal-Algorithmus anwenden
+        // Prim-Algorithmus anwenden
         Prim.prim(graph);
 
-        // Zeit nach der Ausführung des Kruskal-Algorithmus erfassen
+        // Zeit nach der Ausführung des Prim-Algorithmus erfassen
         long endTime = System.currentTimeMillis();
 
         // Laufzeit berechnen

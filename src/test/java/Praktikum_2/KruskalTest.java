@@ -1,17 +1,15 @@
 package Praktikum_2;
 
-import Praktikum_2.Kruskal;
-import Praktikum_2.RandomWeightedGraph;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.MultiGraph;
-import org.graphstream.graph.implementations.SingleGraph;
+
+import static Praktikum_2.Kruskal.calculateTotalWeight;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 public class KruskalTest {
 
-
     @Test
-    public void positiveKruskal() throws Exception {
+    public void positiveKruskal() {
         Graph graph = new MultiGraph("");
 
         // Graph mit Kantengewichtssumme 8
@@ -34,24 +32,14 @@ public class KruskalTest {
     }
 
     @Test
-    public void noKruskal() throws Exception {
-        Graph graph = new SingleGraph("");
-
-        // Graph ohne Kantengewichtssumme
-        graph.addNode("A" );
-        graph.addNode("B" );
-        graph.addNode("C" );
-        graph.addNode("D" );
-        graph.addNode("E" );
-
+    public void noKruskal() {
+        Graph graph = RandomWeightedGraph.getGraph(50, 0);
         Kruskal.kruskal(graph);
-
-        int totalWeight = graph.getAttribute("totalWeight", Integer.class);
-        assertEquals(0, totalWeight);
+        assertEquals(0, calculateTotalWeight(graph));
     }
 
     @Test
-    public void testRandomGraph() throws Exception {
+    public void testRandomGraph() {
         // Random generieren
         Graph graph = RandomWeightedGraph.getGraph(1000, 4000);
         // Kruskal Referenz zum Testen
