@@ -13,14 +13,22 @@ public class RandomWeightedGraph {
         System.setProperty("org.graphstream.ui", "swing");
 
         // Methode mit Beispielwerten aufrufen
-        Graph graph = getGraph(10,20);
 
         Graph graph1 = getGraph(200,400);
-        Graph graph5 = getGraph(1000,2000);
-        Graph graph10 = getGraph(10,20);
+        Graph graph1Copy = Graphs.clone(graph1);
+        Graphs.copyAttributes(graph1, graph1Copy);
 
-        runKruskal(graph5);
+        Graph graph5 = getGraph(1000,2000);
+        Graph graph5Copy = Graphs.clone(graph5);
+        Graphs.copyAttributes(graph5, graph5Copy);
+
+        Graph graph10 = getGraph(10,20);
+        Graph graph10Copy = Graphs.clone(graph10);
+        Graphs.copyAttributes(graph10, graph10Copy);
+
         runPrim(graph5);
+        runKruskal(graph5Copy);
+
     }
 
     public static void runKruskal(Graph graph) {
@@ -107,7 +115,7 @@ public class RandomWeightedGraph {
                 Edge edge = graph.addEdge(String.valueOf(i), nodes.get(0), nodes.get(1));
                 // Random weight setzen; muss hoch sein um benachbarte Kanten mit gleichem Gewicht zu vermeiden,
                 // da die beiden Algorithmen die Kanten sonst nicht immer gleich sortieren
-                int weight = random.nextInt(50000)+1;
+                int weight = random.nextInt(5)+1;
                 edge.setAttribute("ui.label", weight);
                 edge.setAttribute("weight", weight);
             }
