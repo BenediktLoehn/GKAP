@@ -15,9 +15,11 @@ public class RandomEulerGraph {
     public static void main(String[] args) {
         System.setProperty("org.graphstream.ui", "swing");
 
-        Graph graph = getEulerGraph(20);
+        Graph graph = getEulerGraph(10);
         graph.display();
 
+        List<String> eulerianPathHierholzer = Hierholzer.hierholzer(graph);
+        System.out.println("Eulerian Path: " + eulerianPathHierholzer);
     }
 
     public static Graph getEulerGraph(int nodes) {
@@ -28,7 +30,9 @@ public class RandomEulerGraph {
         // Knoten hinzufügen
         List<Node> nodesList = new ArrayList<>(nodes);
         for (int i = 0; i < nodes; i++) {
-            nodesList.add(graph.addNode(String.valueOf(i)));
+            Node addedNode = graph.addNode(String.valueOf(i));
+            addedNode.setAttribute("ui.label", String.valueOf(i));
+            nodesList.add(addedNode);
         }
 
         // Zufällige Kanten und Gewichte hinzufügen
@@ -75,6 +79,7 @@ public class RandomEulerGraph {
                 oddDegreeNodes.add(node);
             }
         }
+
         // Füge Kanten zwischen Knoten mit ungeradem Grad hinzu
         for (int i = 0; i < oddDegreeNodes.size(); i += 2) {
             if (i + 1 < oddDegreeNodes.size()) {
