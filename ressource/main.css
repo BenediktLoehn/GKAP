@@ -7,6 +7,9 @@ edge {
 edge.mst {
     fill-color: rgb(0,100,255);
 }
+edge.visited {
+    fill-color: rgb(255, 100, 0);
+}
 node {
     text-alignment: center;
     text-size: 20px;

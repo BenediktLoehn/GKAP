@@ -11,14 +11,13 @@ import static Praktikum_2.RandomWeightedGraph.loadString;
 
 public class RandomEulerGraph {
    static Random random = new Random();
-
     public static void main(String[] args) {
         System.setProperty("org.graphstream.ui", "swing");
 
         Graph graph = getEulerGraph(10);
         graph.display();
 
-        List<String> eulerianPathHierholzer = Hierholzer.hierholzer(graph);
+        List<Node> eulerianPathHierholzer = Hierholzer.hierholzer(graph);
         System.out.println("Eulerian Path: " + eulerianPathHierholzer);
     }
 
@@ -60,11 +59,12 @@ public class RandomEulerGraph {
         ensureAllNodesHaveEvenDegree(graph);
     }
 
-    private static void addEdgeWithWeight(Graph graph, Node node1, Node node2) {
+    public static void addEdgeWithWeight(Graph graph, Node node1, Node node2) {
         Edge edge = graph.addEdge(UUID.randomUUID().toString(), node1, node2);
         int weight = random.nextInt(5) + 1;
         edge.setAttribute("ui.label", weight);
         edge.setAttribute("weight", weight);
+        edge.setAttribute("visited", false);
     }
 
     private static void ensureAllNodesHaveEvenDegree(Graph graph) {
