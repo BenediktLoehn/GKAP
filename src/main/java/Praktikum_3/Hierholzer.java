@@ -14,11 +14,11 @@
             Node startNode = graph.getNode(random.nextInt(graph.getNodeCount()));
 
             List<Node> eulerianCircuit = new ArrayList<>();
-            findEulerianCircuit(graph, startNode, eulerianCircuit);
+            findEulerianCircuit(startNode, eulerianCircuit);
             return eulerianCircuit;
         }
 
-        private static void findEulerianCircuit(Graph graph, Node currentNode, List<Node> circuit) {
+        private static void findEulerianCircuit(Node currentNode, List<Node> circuit) {
             Stack<Node> stack = new Stack<>();
             Node current = currentNode;
 
@@ -29,12 +29,13 @@
                         if (!edge.getAttribute("visited", Boolean.class)) {
                             edge.setAttribute("visited", true);
                             edge.setAttribute("ui.class", "visited");
-                            System.out.println(edge.getIndex());
+                            System.out.println(edge.getIndex()); //Debugging ausgabe
                             current = edge.getOpposite(current);
                             break;
                         }
                     }
                 } else {
+                    //wenn alle edges besucht, knoten zum kreis hinzufügen und nächsten knoten betrachten
                     circuit.add(current);
                     current = stack.pop();
                 }
