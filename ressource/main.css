@@ -4,6 +4,7 @@ edge {
     text-background-mode: plain;
 }
 
+
 edge.mst {
     fill-color: rgb(0,100,255);
 }
@@ -12,7 +13,7 @@ edge.visited {
 }
 node {
     text-alignment: center;
-    text-size: 20px;
+    text-size: 40px;
     text-background-mode: plain;
     text-color: rgb(100, 0, 255);
 }

@@ -5,7 +5,11 @@ import org.graphstream.graph.Node;
 import org.junit.jupiter.api.Test;
 import org.graphstream.graph.Graph;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class HierholzerTest {
 
@@ -14,16 +18,21 @@ public class HierholzerTest {
         Graph graph = RandomEulerGraph.getEulerGraph(20);
         List<Node> eulerianCircuit = Hierholzer.hierholzer(graph);
 
-        assertNotNull(eulerianCircuit, "Eulerian circuit should not be null");
-        assertFalse(eulerianCircuit.isEmpty(), "Eulerian circuit should not be empty");
+        assertNotNull(eulerianCircuit);
+        assertFalse(eulerianCircuit.isEmpty());
 
         // Check if the circuit starts and ends at the same node
-        assertEquals(eulerianCircuit.getFirst(), eulerianCircuit.getLast(), "Eulerian circuit should start and end at the same node");
+        assertEquals(eulerianCircuit.getFirst(), eulerianCircuit.getLast());
 
         // Check if all edges were visited
+        List<Edge> visitedEdges = new ArrayList<>();
         for (Edge edge : graph.edges().toList()) {
-            assertTrue(edge.getAttribute("visited", Boolean.class), "All edges should be visited");
+            assertTrue(edge.getAttribute("visited", Boolean.class));
+            visitedEdges.add(edge);
         }
+        Set<Edge> visitedEdgesSet = new HashSet<>(visitedEdges);
+        assertEquals(visitedEdges.size(), visitedEdgesSet.size()); //no edge should be visited twice
+        assertTrue(isEulerianCircuitValid(eulerianCircuit));
     }
 
     @Test

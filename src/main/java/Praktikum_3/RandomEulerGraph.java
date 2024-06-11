@@ -11,10 +11,12 @@ import static Praktikum_2.RandomWeightedGraph.loadString;
 
 public class RandomEulerGraph {
    static Random random = new Random();
+   static int edgeIdCounter = 0;
+
     public static void main(String[] args) {
         System.setProperty("org.graphstream.ui", "swing");
 
-        Graph graph = getEulerGraph(10);
+        Graph graph = getEulerGraph(50);
         graph.display();
 
         List<Node> eulerianPathHierholzer = Hierholzer.hierholzer(graph);
@@ -62,7 +64,8 @@ public class RandomEulerGraph {
     public static void addEdgeWithWeight(Graph graph, Node node1, Node node2) {
         Edge edge = graph.addEdge(UUID.randomUUID().toString(), node1, node2);
         int weight = random.nextInt(5) + 1;
-        edge.setAttribute("ui.label", weight);
+        edge.setAttribute("ui.label", edgeIdCounter);
+        edgeIdCounter++;
         edge.setAttribute("weight", weight);
         edge.setAttribute("visited", false);
     }
