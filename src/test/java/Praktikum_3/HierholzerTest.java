@@ -21,8 +21,6 @@ public class HierholzerTest {
         assertNotNull(eulerianCircuit);
         assertFalse(eulerianCircuit.isEmpty());
 
-        // Check if the circuit starts and ends at the same node
-        assertEquals(eulerianCircuit.getFirst(), eulerianCircuit.getLast());
 
         // Check if all edges were visited
         List<Edge> visitedEdges = new ArrayList<>();
@@ -51,9 +49,11 @@ public class HierholzerTest {
     private boolean isEulerianCircuitValid(List<Node> circuit) {
         if (circuit == null || circuit.isEmpty()) return false;
 
+        //all nodes have even degree?
         for (Node node : circuit) {
             if (node.getDegree() % 2 != 0) return false;
         }
+        // circuit starts and ends at the same node?
         return circuit.getFirst().equals(circuit.getLast());
     }
 }
