@@ -91,7 +91,7 @@ public class RandomWeightedGraph {
     public static Graph getGraph(int nodes, int edges) {
         // Graph initialisieren
         Graph graph = new MultiGraph("Random Weighted Graph");
-        graph.setAttribute("ui.stylesheet", loadString("main.css"));
+        //graph.setAttribute("ui.stylesheet", loadString("main.css"));
 
         // Knoten hinzufügen
         List<Node> nodesList = new ArrayList<>(nodes);

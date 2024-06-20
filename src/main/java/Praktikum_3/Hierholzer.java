@@ -29,7 +29,7 @@
                         if (!edge.getAttribute("visited", Boolean.class)) {
                             edge.setAttribute("visited", true);
                             edge.setAttribute("ui.class", "visited");
-                            System.out.print(edge.getAttribute("ui.label") + " "); //Debugging ausgabe
+                            //System.out.print(edge.getAttribute("ui.label") + " "); //Debugging ausgabe
                             current = edge.getOpposite(current);
                             break;
                         }
