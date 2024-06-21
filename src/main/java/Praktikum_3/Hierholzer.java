@@ -45,6 +45,6 @@ public class Hierholzer {
                 current = stack.pop();
             }
         }
-        circuit.add(current); // Füge den Startknoten am Ende hinzu
+        circuit.add(current); // Füge den Startknoten am Ende hinzu um den Kreis zu schließen
     }
 }

@@ -28,16 +28,13 @@ public class HierholzerTest {
     // Test für kleinen Eulergraphen
     @Test
     public void testSmallEulerGraph() {
-        // Initialisiere den Graphen
         Graph graph = new SingleGraph("Small Euler Graph");
 
-        // Füge Knoten hinzu
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");
         graph.addNode("D");
 
-        // Füge Kanten hinzu
         graph.addEdge("AB", "A", "B");
         graph.addEdge("BC", "B", "C");
         graph.addEdge("CD", "C", "D");
@@ -49,66 +46,51 @@ public class HierholzerTest {
     // Test für kleinen Graphen (kein Eulergraph)
     @Test
     public void testSmallNonEulerGraph() {
-        // Initialisiere den Graphen
         Graph graph = new SingleGraph("Small Non-Euler Graph");
 
-        // Füge Knoten hinzu
         graph.addNode("A");
         graph.addNode("B");
         graph.addNode("C");
 
-        // Füge Kanten hinzu
         graph.addEdge("AB", "A", "B");
         graph.addEdge("BC", "B", "C");
 
-        // Überprüfe, ob die Kantenfolge ein Eulerkreis ist (sollte es nicht sein)
         assertFalse(isEulerianCycle(graph, Hierholzer.hierholzer(graph)));
     }
 
     // Test für kleinen Eulergraphen (nur ein Knoten)
     @Test
     public void testSingleEulerGraph() {
-        // Initialisiere den Graphen
         Graph graph = new SingleGraph("Small Euler Graph");
 
-        // Füge Knoten hinzu
         graph.addNode("A");
 
-        // Überprüfe, ob die Kantenfolge ein Eulerkreis ist (sollte sein)
         assertTrue(isEulerianCycle(graph, Hierholzer.hierholzer(graph)));
     }
 
     // Test für kleinen Eulergraphen (nur ein Knoten mit Schlinge)
     @Test
     public void testSingleEulerGraphWithSchlinge() {
-        // Initialisiere den Graphen
         Graph graph = new SingleGraph("Small Euler Graph");
 
-        // Füge Knoten hinzu
         graph.addNode("A");
 
-        // Füge Kanten hinzu
         graph.addEdge("AA", "A", "A");
 
-        // Überprüfe, ob die Kantenfolge ein Eulerkreis ist (sollte sein)
         assertTrue(isEulerianCycle(graph, Hierholzer.hierholzer(graph)));
     }
 
     // Test für kleinen Eulergraphen (mit Mehrfachkanten)
     @Test
     public void testSingleEulerGraphWithMehr() {
-        // Initialisiere den Graphen
         Graph graph = new MultiGraph("Small Euler Graph");
 
-        // Füge Knoten hinzu
         graph.addNode("A");
         graph.addNode("B");
 
-        // Füge Kanten hinzu
         graph.addEdge("AB", "A", "B");
         graph.addEdge("BA", "A", "B");
 
-        // Überprüfe, ob die Kantenfolge ein Eulerkreis ist (sollte sein)
         assertTrue(isEulerianCycle(graph, Hierholzer.hierholzer(graph)));
     }
 

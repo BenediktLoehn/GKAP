@@ -101,84 +101,11 @@ public class RandomEulerGraph {
             addEdgeWithWeight(graph, node1, node2);
         }
 
-        // Wenn eine ungerade Anzahl von Knoten vorhanden ist, die entfernt wurde
+        /*// Wenn eine ungerade Anzahl von Knoten vorhanden ist, die entfernt wurde
         if (oddDegreeNodes.size() == 1) {
             // Füge eine Schleife zu sich selbst hinzu, um den Grad gerade zu machen
             Node node = oddDegreeNodes.remove(0);
             addEdgeWithWeight(graph, node, node);
-        }
+        }*/
     }
-
-
-    // Alter code
-
-/*
-    public static Graph getEulerGraph(int nodes) {
-        // Graph initialisieren
-        Graph graph = new MultiGraph("Random Weighted Graph");
-       // graph.setAttribute("ui.stylesheet", loadString("main.css"));
-
-        // Knoten hinzufügen
-        List<Node> nodesList = new ArrayList<>(nodes);
-        for (int i = 0; i < nodes; i++) {
-            Node addedNode = graph.addNode(String.valueOf(i));
-            addedNode.setAttribute("ui.style", "shape:circle;fill-color: yellow;size: 20px;text-size:15px;");
-            addedNode.setAttribute("ui.label", String.valueOf(i));
-            nodesList.add(addedNode);
-        }
-
-        // Zufällige Kanten und Gewichte hinzufügen
-        addRandomEulerEdges(graph, nodesList);
-        return graph;
-    }
-
-    private static void addRandomEulerEdges(Graph graph, List<Node> nodes) {
-        int numEdges = random.nextInt(nodes.size() * 2) + nodes.size(); // Zufällige Anzahl von Kanten, mindestens so viele wie Knoten
-        int edgesAdded = 0;
-
-        // Kanten zufällig hinzufügen
-        while (edgesAdded < numEdges) {
-            Collections.shuffle(nodes);
-            Node node1 = nodes.get(0);
-            Node node2 = nodes.get(1);
-
-            if (!node1.hasEdgeBetween(node2)) {
-                addEdgeWithWeight(graph, node1, node2);
-                edgesAdded++;
-            }
-        }
-
-        // Sicherstellen, dass alle Knoten am Ende einen geraden Grad haben
-        ensureAllNodesHaveEvenDegree(graph);
-    }
-
-    public static void addEdgeWithWeight(Graph graph, Node node1, Node node2) {
-        Edge edge = graph.addEdge(UUID.randomUUID().toString(), node1, node2);
-        int weight = random.nextInt(5) + 1;
-        //edge.setAttribute("ui.label", edgeIdCounter);
-        edgeIdCounter++;
-        edge.setAttribute("weight", weight);
-        edge.setAttribute("visited", false);
-    }
-
-    private static void ensureAllNodesHaveEvenDegree(Graph graph) {
-        List<Node> nodes = new ArrayList<>();
-        for (Node node : graph) {
-            nodes.add(node);
-        }
-
-        List<Node> oddDegreeNodes = new ArrayList<>();
-        for (Node node : nodes) {
-            if (node.getDegree() % 2 != 0 || node.getDegree() == 0) {
-                oddDegreeNodes.add(node);
-            }
-        }
-
-        // Füge Kanten zwischen Knoten mit ungeradem Grad hinzu
-        for (int i = 0; i < oddDegreeNodes.size(); i += 2) {
-            if (i + 1 < oddDegreeNodes.size()) {
-                addEdgeWithWeight(graph, oddDegreeNodes.get(i), oddDegreeNodes.get(i + 1));
-            }
-        }
-    }*/
 }
